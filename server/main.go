@@ -176,7 +176,7 @@ func socks5Read(conn *socket.ConnWrap) {
 		return
 	}
 	pser.ClientWrite(socket.MakeMsg(uint16(sid), socket.CONNECT, reqBody))
-	var buffer [2048]byte
+	var buffer [1024]byte
 	for {
 		n, err := conn.Read(buffer[:])
 		if err != nil {
@@ -188,5 +188,6 @@ func socks5Read(conn *socket.ConnWrap) {
 		datamsg := socket.MakeMsg(uint16(sid), socket.DATA, buffer[:n])
 		pser.ClientWrite(datamsg)
 	}
+	time.Sleep(20 * time.Second)
 	pser.DeleSession(sid)
 }

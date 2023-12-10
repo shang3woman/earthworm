@@ -120,7 +120,7 @@ func connectDst(c *Client, sid int, body []byte) {
 	if !c.AddSession(sid, conn) {
 		return
 	}
-	var buffer [2048]byte
+	var buffer [1024]byte
 	for {
 		n, err := conn.Read(buffer[:])
 		if err != nil {
